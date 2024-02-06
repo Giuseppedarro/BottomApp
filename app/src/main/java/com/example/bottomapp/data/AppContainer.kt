@@ -9,6 +9,10 @@ interface AppContainer {
 class DefaultAppContainer(context: Context) : AppContainer {
 
     override val workoutRepository: WorkoutRepository by lazy {
-        OfflineWorkoutRepository(WorkoutDatabase.getWorkoutDatabase(context).getDao())
+        OfflineWorkoutRepository(
+            WorkoutDatabase
+                .getWorkoutDatabase(context)
+                .getDao()
+        )
     }
 }
