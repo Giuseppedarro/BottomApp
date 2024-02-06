@@ -21,8 +21,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.bottomapp.R
-import com.example.bottomapp.data.Workout
+import com.example.bottomapp.data.enteties.Exercise
+import com.example.bottomapp.data.enteties.Workout
 import com.example.bottomapp.ui.viewmodels.WorkoutViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
@@ -30,7 +32,7 @@ import kotlinx.coroutines.launch
 fun WorkoutScreen() {
 
     val viewModel: WorkoutViewModel = viewModel(factory = WorkoutViewModel.Factory)
-    val workouts by viewModel.workoutState.collectAsState()
+    val workoutsWithExercises by viewModel.workoutState.collectAsState()
     val scope = rememberCoroutineScope()
 
     Column(
@@ -39,18 +41,25 @@ fun WorkoutScreen() {
             .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Button(onClick = { scope.launch { viewModel.insertWorkout(Workout(name = "All", setsCount = (1..10).random())) } }) {
+        Button(onClick = { scope.launch {
+            viewModel.insertWorkoutWithExercises()
+        } }) {
             Text(text = stringResource(id = R.string.insert))
         }
-        workouts.forEach { workout ->
+        workoutsWithExercises.forEach { workoutWithExercises ->
             Row(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
-                    text = stringResource(id = R.string.workout_session, workout.name, workout.setsCount)
+                    text = stringResource(
+                        id = R.string.workout_session,
+                        workoutWithExercises.workout.name,
+                        workoutWithExercises.workout.setsCount,
+                        workoutWithExercises.exercises.first().exerciseName
+                    )
                 )
                 Spacer(modifier = Modifier.weight(weight = 1f))
-                IconButton(onClick = { scope.launch { viewModel.deleteWorkout(workout) } }) {
+                IconButton(onClick = { scope.launch { viewModel.deleteWorkoutWithExercises(workoutWithExercises) } }) {
                     Icon(imageVector = Icons.Default.Delete, contentDescription = "delete")
                 }
             }
