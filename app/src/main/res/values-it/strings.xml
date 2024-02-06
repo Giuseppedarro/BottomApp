@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BottomApp</string>
+    <string name="home_screen">Home</string>
+    <string name="workout_screen">workout</string>
+    <string name="settings_screen">Impostazioni</string>
+    <string name="insert">Inserisci</string>
+    <string name="workout_session">workout: %1$s con %2$d serie</string>
+</resources>

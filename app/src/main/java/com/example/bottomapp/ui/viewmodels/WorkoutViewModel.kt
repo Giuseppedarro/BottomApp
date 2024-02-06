@@ -9,8 +9,10 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.bottomapp.BottomApplication
 import com.example.bottomapp.data.Workout
 import com.example.bottomapp.data.WorkoutRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.stateIn
 
 class WorkoutViewModel(
@@ -18,6 +20,7 @@ class WorkoutViewModel(
 ) : ViewModel() {
 
     val workoutState: StateFlow<List<Workout>> = workoutRepository.getWorkout()
+        .flowOn(Dispatchers.IO)
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(),
