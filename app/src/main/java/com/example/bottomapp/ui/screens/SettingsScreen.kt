@@ -7,7 +7,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import com.example.bottomapp.ui.navigation.NavScreens
+import com.example.bottomapp.ui.navigation.NavDestination
 
 @Composable
 fun SettingsScreen() {
@@ -17,7 +17,7 @@ fun SettingsScreen() {
         horizontalArrangement = Arrangement.Center
     ) {
         Text(
-            text = stringResource(id = NavScreens.SettingsScreen.title)
+            text = stringResource(id = NavDestination.SettingsDestination.title)
         )
     }
 

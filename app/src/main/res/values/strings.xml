@@ -4,6 +4,5 @@
     <string name="workout_screen">workout</string>
     <string name="settings_screen">Settings</string>
     <string name="insert">Insert</string>
-    <string name="workout_session">workout: %1$s with %2$d number of sets of</string>
-
+    <string name="workout_test">workout: %1$s with %2$d number of sets of 3%$s</string>
 </resources>

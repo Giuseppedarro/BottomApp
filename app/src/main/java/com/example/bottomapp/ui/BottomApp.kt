@@ -12,6 +12,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.bottomapp.ui.navigation.BottomBar
+import com.example.bottomapp.ui.navigation.NavDestination
 import com.example.bottomapp.ui.navigation.NavGraph
 
 @Preview
@@ -20,11 +21,12 @@ import com.example.bottomapp.ui.navigation.NavGraph
 fun BottomApp() {
     val navController: NavHostController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentDestination = navBackStackEntry?.destination?.route
+    val currentDestination = NavDestination.valueOf(navBackStackEntry?.destination?.route
+        ?: NavDestination.HomeDestination.route)
     val bottomBarState = rememberSaveable { mutableStateOf(true) }
 
     bottomBarState.value = when (currentDestination) {
-        "settings_screen"  -> false
+        NavDestination.SettingsDestination  -> false
         else -> true
     }
 
@@ -35,8 +37,8 @@ fun BottomApp() {
             currentDestination  = currentDestination,
             bottomBarState = bottomBarState
         ) }
-    ) { innerPadding ->
-        NavGraph(navController = navController, paddingValues = innerPadding)
+    ) { paddingValues ->
+        NavGraph(navController = navController, paddingValues = paddingValues)
     }
 }
 

@@ -1,11 +1,7 @@
 package com.example.bottomapp.ui.navigation
 
 import androidx.annotation.StringRes
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.scaleIn
 import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.icons.Icons
@@ -25,55 +21,66 @@ import com.example.bottomapp.ui.screens.HomeScreen
 import com.example.bottomapp.ui.screens.SettingsScreen
 import com.example.bottomapp.ui.screens.WorkoutScreen
 
-sealed class NavScreens(
+sealed class NavDestination(
     val route: String,
     val iconSelected: ImageVector,
     val iconNotSelected: ImageVector,
     @StringRes
     val title: Int
 ) {
-    data object HomeScreen: NavScreens(
+    data object HomeDestination: NavDestination(
         route = "home_screen",
         iconSelected = Icons.Filled.Home,
         iconNotSelected = Icons.Outlined.Home,
         title = R.string.home_screen
     )
-    data object WorkoutScreen: NavScreens(
+    data object WorkoutDestination: NavDestination(
         route = "workout_screen",
         iconSelected = Icons.Filled.AccountBox,
         iconNotSelected = Icons.Outlined.AccountBox,
         title = R.string.workout_screen
+
     )
-    data object SettingsScreen: NavScreens(
+    data object SettingsDestination: NavDestination(
         route = "settings_screen",
         iconSelected = Icons.Filled.Settings,
         iconNotSelected = Icons.Outlined.Settings,
         title = R.string.settings_screen
     )
+
+    companion object {
+        val allDestinations = listOf(
+            HomeDestination,
+            WorkoutDestination,
+            SettingsDestination
+        )
+        /**Function that returns NavDestination of the given route*/
+        fun valueOf(route: String) = allDestinations.find{ it.route == route } ?: HomeDestination
+    }
 }
 
 @Composable
 fun NavGraph(navController: NavHostController, paddingValues: PaddingValues) {
     NavHost(
         navController = navController,
-        startDestination = NavScreens.HomeScreen.route,
+        startDestination = NavDestination.HomeDestination.route,
         enterTransition = { slideInHorizontally(initialOffsetX = { fullWidth -> 30*fullWidth }) },
         exitTransition = { slideOutHorizontally(targetOffsetX = { fullWidth -> -30*fullWidth }) }
 
     ) {
         composable(
-            route = NavScreens.HomeScreen.route,
+            route = NavDestination.HomeDestination.route,
 
             ) {
-            HomeScreen()
+            HomeScreen(paddingValues = paddingValues)
         }
         composable(
-            route = NavScreens.WorkoutScreen.route,
+            route = NavDestination.WorkoutDestination.route,
             ) {
-            WorkoutScreen()
+            WorkoutScreen(paddingValues = paddingValues)
         }
         composable(
-            route = NavScreens.SettingsScreen.route,
+            route = NavDestination.SettingsDestination.route,
 
             ) {
             SettingsScreen()

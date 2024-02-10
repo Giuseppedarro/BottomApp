@@ -3,6 +3,7 @@ package com.example.bottomapp.data
 import com.example.bottomapp.data.enteties.Exercise
 import com.example.bottomapp.data.enteties.Workout
 import com.example.bottomapp.data.enteties.WorkoutWithExercises
+import com.example.bottomapp.data.source.local.WorkoutDao
 import kotlinx.coroutines.flow.Flow
 
 interface WorkoutRepository {
@@ -27,7 +28,7 @@ interface WorkoutRepository {
 
 }
 
-class OfflineWorkoutRepository(private val dao: WorkoutDao) : WorkoutRepository {
+class DefaultWorkoutRepository(private val dao: WorkoutDao) : WorkoutRepository {
 
     override suspend fun insertWorkout(workout: Workout) = dao.insertWorkout(workout)
 
@@ -38,6 +39,7 @@ class OfflineWorkoutRepository(private val dao: WorkoutDao) : WorkoutRepository 
     override suspend fun insertWorkoutWithExercises() {
         val workoutId = insertWorkout(Workout(name = "WorkoutName", setsCount = (1..10).random()))
         insertAllExercises(listOf(Exercise(exerciseName = "panca ${workoutId}", workoutId = workoutId.toInt())))
+        println()
     }
 
     override fun getAllWorkouts(): Flow<List<Workout>> = dao.getAllWorkouts()

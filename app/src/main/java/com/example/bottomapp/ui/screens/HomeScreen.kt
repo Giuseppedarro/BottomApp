@@ -1,25 +1,39 @@
 package com.example.bottomapp.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import com.example.bottomapp.ui.navigation.NavScreens
+import com.example.bottomapp.ui.navigation.NavDestination
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(paddingValues: PaddingValues) {
 
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.Center
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(paddingValues)
+
     ) {
-        Text(
-            text = stringResource(id = NavScreens.HomeScreen.title)
-        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(paddingValues = paddingValues),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = stringResource(id = NavDestination.HomeDestination.title)
+            )
+        }
     }
+
+
 
 }
