@@ -1,4 +1,4 @@
-package com.example.bottomapp.data.enteties
+package com.example.bottomapp.data.source.local.enteties
 
 import androidx.room.Embedded
 import androidx.room.Entity

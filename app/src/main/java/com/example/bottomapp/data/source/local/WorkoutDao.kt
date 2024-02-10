@@ -5,9 +5,9 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
-import com.example.bottomapp.data.enteties.Exercise
-import com.example.bottomapp.data.enteties.Workout
-import com.example.bottomapp.data.enteties.WorkoutWithExercises
+import com.example.bottomapp.data.source.local.enteties.Exercise
+import com.example.bottomapp.data.source.local.enteties.Workout
+import com.example.bottomapp.data.source.local.enteties.WorkoutWithExercises
 import kotlinx.coroutines.flow.Flow
 
 @Dao

@@ -7,10 +7,10 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.bottomapp.BottomApplication
-import com.example.bottomapp.data.enteties.Workout
+import com.example.bottomapp.data.source.local.enteties.Workout
 import com.example.bottomapp.data.WorkoutRepository
-import com.example.bottomapp.data.enteties.Exercise
-import com.example.bottomapp.data.enteties.WorkoutWithExercises
+import com.example.bottomapp.data.source.local.enteties.Exercise
+import com.example.bottomapp.data.source.local.enteties.WorkoutWithExercises
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

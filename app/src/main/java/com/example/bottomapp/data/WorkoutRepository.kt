@@ -1,8 +1,8 @@
 package com.example.bottomapp.data
 
-import com.example.bottomapp.data.enteties.Exercise
-import com.example.bottomapp.data.enteties.Workout
-import com.example.bottomapp.data.enteties.WorkoutWithExercises
+import com.example.bottomapp.data.source.local.enteties.Exercise
+import com.example.bottomapp.data.source.local.enteties.Workout
+import com.example.bottomapp.data.source.local.enteties.WorkoutWithExercises
 import com.example.bottomapp.data.source.local.WorkoutDao
 import kotlinx.coroutines.flow.Flow
 

@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.bottomapp.data.enteties.Exercise
-import com.example.bottomapp.data.enteties.Workout
+import com.example.bottomapp.data.source.local.enteties.Exercise
+import com.example.bottomapp.data.source.local.enteties.Workout
 
 
 @Database(entities = [Workout::class, Exercise::class], version = 1)
