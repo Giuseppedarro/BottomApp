@@ -39,7 +39,7 @@ class DefaultWorkoutRepository(private val dao: WorkoutDao) : WorkoutRepository 
     override suspend fun insertWorkoutWithExercises() {
         val workoutId = insertWorkout(Workout(name = "WorkoutName", setsCount = (1..10).random()))
         insertAllExercises(listOf(Exercise(exerciseName = "panca ${workoutId}", workoutId = workoutId.toInt())))
-        println()
+
     }
 
     override fun getAllWorkouts(): Flow<List<Workout>> = dao.getAllWorkouts()
