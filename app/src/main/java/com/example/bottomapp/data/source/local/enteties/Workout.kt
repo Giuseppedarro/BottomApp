@@ -7,7 +7,8 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "workouts")
 data class Workout(
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    @ColumnInfo("workout_id")
+    val workoutId: Long = 0,
     val name: String,
     @ColumnInfo(name = "set_count")
     val setsCount: Int,

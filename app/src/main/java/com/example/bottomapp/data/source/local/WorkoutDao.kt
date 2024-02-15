@@ -6,36 +6,42 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
 import com.example.bottomapp.data.source.local.enteties.Exercise
+import com.example.bottomapp.data.source.local.enteties.TrainingSet
 import com.example.bottomapp.data.source.local.enteties.Workout
 import com.example.bottomapp.data.source.local.enteties.WorkoutWithExercises
+import com.example.bottomapp.data.source.local.enteties.WorkoutWithExercisesAndSets
+import com.example.bottomapp.model.WorkoutState
+import com.example.bottomapp.model.toExercise
+import com.example.bottomapp.model.toTrainingSet
+import com.example.bottomapp.model.toWorkout
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface WorkoutDao {
 
+
+    @Transaction
+    @Query("SELECT * FROM workouts")
+    fun getWorkoutsWithExercisesAndSetsFlow(): Flow<List<WorkoutWithExercisesAndSets>>
+
     @Insert
     suspend fun insertWorkout(workout: Workout): Long
 
     @Insert
-    suspend fun insertExercise(exercise: Exercise)
+    suspend fun insertExercise(exercise: Exercise): Long
 
     @Insert
-    suspend fun insertAllExercises(exercises: List<Exercise>)
-
-    @Query("SELECT * FROM workouts")
-    fun getAllWorkouts(): Flow<List<Workout>>
+    suspend fun insertTrainingSets(sets: List<TrainingSet>)
 
     @Transaction
-    @Query("SELECT * FROM workouts")
-    fun getAllWorkoutsWithExercises(): Flow<List<WorkoutWithExercises>>
+    suspend fun insertWorkoutWithExercisesAndSets(workoutState: WorkoutState) {
+        val workoutId = insertWorkout(workoutState.toWorkout())
+        workoutState.exercises.forEach {
+            val exercise = it.toExercise(workoutId)
+            val exerciseId = insertExercise(exercise)
+            val trainingSets = it.sets.map { it.toTrainingSet(exerciseId) }
+            insertTrainingSets(trainingSets)
+        }
 
-    @Delete
-    suspend fun deleteWorkout(workout: Workout)
-
-    @Delete
-    suspend fun deleteExercise(exercise: Exercise)
-
-    @Delete
-    suspend fun deleteAllExercises(exercises: List<Exercise>)
-
+    }
 }

@@ -34,46 +34,8 @@ import kotlinx.coroutines.launch
 fun WorkoutScreen(paddingValues: PaddingValues) {
 
     val viewModel: WorkoutViewModel = viewModel(factory = WorkoutViewModel.Factory)
-    val workoutsWithExercises by viewModel.workoutState.collectAsState()
+    val workouts by viewModel.workoutState.collectAsState()
     val scope = rememberCoroutineScope()
-
-
-    Column(
-        modifier = Modifier
-            .verticalScroll(rememberScrollState())
-            .fillMaxWidth()
-            .padding(paddingValues),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Card {
-            Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
-        }
-        Button(onClick = { scope.launch(Dispatchers.IO) {
-            viewModel.insertWorkoutWithExercises()
-        } }) {
-            Text(text = stringResource(id = R.string.insert))
-        }
-        workoutsWithExercises.forEach { workoutWithExercises ->
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Text(
-                    text = stringResource(
-                        id = R.string.workout_test,
-                        workoutWithExercises.workout.name,
-                        workoutWithExercises.workout.setsCount,
-                        workoutWithExercises.exercises.first().exerciseName
-                    )
-                )
-                Spacer(modifier = Modifier.weight(weight = 1f))
-                IconButton(
-                    onClick = { scope.launch { viewModel.deleteWorkoutWithExercises(workoutWithExercises) } }) {
-                    Icon(imageVector = Icons.Default.Delete, contentDescription = "delete")
-                }
-            }
-
-        }
-    }
 
 
 }

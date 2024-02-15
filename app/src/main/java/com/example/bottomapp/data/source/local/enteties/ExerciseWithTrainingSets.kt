@@ -4,13 +4,13 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.Relation
 
-
-data class WorkoutWithExercises(
+data class ExerciseWithTrainingSets(
     @Embedded
-    val workout: Workout,
+    val exercise: Exercise,
     @Relation(
-        parentColumn = "workout_id",
-        entityColumn = "workout_id"
+        parentColumn = "exercise_id",
+        entityColumn = "exercise_id"
     )
-    val exercises: List<Exercise>
+    val trainingSets: List<TrainingSet>
 )
+

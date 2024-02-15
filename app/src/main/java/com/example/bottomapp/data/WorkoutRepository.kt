@@ -4,52 +4,29 @@ import com.example.bottomapp.data.source.local.enteties.Exercise
 import com.example.bottomapp.data.source.local.enteties.Workout
 import com.example.bottomapp.data.source.local.enteties.WorkoutWithExercises
 import com.example.bottomapp.data.source.local.WorkoutDao
+import com.example.bottomapp.model.WorkoutState
+import com.example.bottomapp.model.toWorkoutState
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 
 interface WorkoutRepository {
 
-    suspend fun insertWorkout(workout: Workout): Long
+    fun getWorkoutsFlow(): Flow<List<WorkoutState>>
 
-    suspend fun insertExercise(exercise: Exercise)
-
-    suspend fun insertAllExercises(exercises: List<Exercise>)
-
-    suspend fun insertWorkoutWithExercises()
-
-    fun getAllWorkouts(): Flow<List<Workout>>
-
-    fun getAllWorkoutsWithExercises(): Flow<List<WorkoutWithExercises>>
-
-    suspend fun deleteWorkout(workout: Workout)
-
-    suspend fun deleteExercise(exercise: Exercise)
-
-    suspend fun deleteAllExercises(exercises: List<Exercise>)
+    suspend fun insertWorkoutWithExercisesAndSets(workoutState: WorkoutState)
 
 }
 
 class DefaultWorkoutRepository(private val dao: WorkoutDao) : WorkoutRepository {
 
-    override suspend fun insertWorkout(workout: Workout) = dao.insertWorkout(workout)
+    override fun getWorkoutsFlow(): Flow<List<WorkoutState>> =
+        dao.getWorkoutsWithExercisesAndSetsFlow()
+            .map { it.map { it.toWorkoutState() } }
+            .flowOn(Dispatchers.IO)
 
-    override suspend fun insertExercise(exercise: Exercise) = dao.insertExercise(exercise)
-
-    override suspend fun insertAllExercises(exercises: List<Exercise>) = dao.insertAllExercises(exercises)
-
-    override suspend fun insertWorkoutWithExercises() {
-        val workoutId = insertWorkout(Workout(name = "WorkoutName", setsCount = (1..10).random()))
-        insertAllExercises(listOf(Exercise(exerciseName = "panca ${workoutId}", workoutId = workoutId.toInt())))
-
-    }
-
-    override fun getAllWorkouts(): Flow<List<Workout>> = dao.getAllWorkouts()
-
-    override fun getAllWorkoutsWithExercises(): Flow<List<WorkoutWithExercises>> = dao.getAllWorkoutsWithExercises()
-
-    override suspend fun deleteWorkout(workout: Workout) = dao.deleteWorkout(workout)
-
-    override suspend fun deleteExercise(exercise: Exercise) =dao.deleteExercise(exercise)
-
-    override suspend fun deleteAllExercises(exercises: List<Exercise>) = dao.deleteAllExercises(exercises)
+    override suspend fun insertWorkoutWithExercisesAndSets(workoutState: WorkoutState) =
+        dao.insertWorkoutWithExercisesAndSets(workoutState)
 
 }

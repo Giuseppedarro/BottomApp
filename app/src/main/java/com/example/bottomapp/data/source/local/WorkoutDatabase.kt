@@ -5,10 +5,11 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.bottomapp.data.source.local.enteties.Exercise
+import com.example.bottomapp.data.source.local.enteties.TrainingSet
 import com.example.bottomapp.data.source.local.enteties.Workout
 
 
-@Database(entities = [Workout::class, Exercise::class], version = 1)
+@Database(entities = [Workout::class, Exercise::class, TrainingSet::class], version = 1)
 abstract class WorkoutDatabase : RoomDatabase() {
     abstract fun getDao(): WorkoutDao
 
