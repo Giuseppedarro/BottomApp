@@ -9,6 +9,7 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.bottomapp.BottomApplication
 import com.example.bottomapp.data.WorkoutRepository
 import com.example.bottomapp.data.source.local.enteties.Exercise
+import com.example.bottomapp.data.source.local.enteties.Workout
 import com.example.bottomapp.model.ExerciseState
 import com.example.bottomapp.model.SetState
 import com.example.bottomapp.model.WorkoutState
@@ -28,6 +29,7 @@ class WorkoutViewModel(
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
+            insertRandomWorkout()
             workoutRepository.getWorkoutsFlow().collect { latestState ->
                 _workoutState.update { latestState }
             }
@@ -36,18 +38,21 @@ class WorkoutViewModel(
     }
 
     suspend fun insertRandomWorkout() {
-        val exercises = listOf<ExerciseState>(
-            ExerciseState(exerciseName = "military", sets = listOf<SetState>(SetState(100,5))),
-            ExerciseState(exerciseName = "panca", sets = listOf<SetState>(SetState(150,1))),
-            ExerciseState(exerciseName = "squat", sets = listOf<SetState>(SetState(100,10)))
-        )
-        val workout = WorkoutState(
-            name = "January ${(1..31).random()}",
-            exercises = exercises
-
-        )
-        workoutRepository.insertWorkoutWithExercisesAndSets(workout)
+        repeat(3) {
+            val exercises = listOf<ExerciseState>(
+                ExerciseState(exerciseName = "military", sets = listOf<SetState>(SetState(100,5))),
+                ExerciseState(exerciseName = "panca", sets = listOf<SetState>(SetState(150,1))),
+                ExerciseState(exerciseName = "squat", sets = listOf<SetState>(SetState(100,10)))
+            )
+            val workout = WorkoutState(
+                name = "January ${(1..31).random()}",
+                exercises = exercises
+            )
+            workoutRepository.insertWorkoutWithExercisesAndSets(workout)
+        }
     }
+
+    suspend fun deleteWorkout(workout: WorkoutState) = workoutRepository.deleteWorkout(workout)
 
  companion object {
      val Factory: ViewModelProvider.Factory = viewModelFactory {

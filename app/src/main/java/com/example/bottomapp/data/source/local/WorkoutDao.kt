@@ -42,6 +42,10 @@ interface WorkoutDao {
             val trainingSets = it.sets.map { it.toTrainingSet(exerciseId) }
             insertTrainingSets(trainingSets)
         }
-
     }
+
+    @Transaction
+    @Delete
+    suspend fun deleteWorkout(workout: Workout)
+
 }

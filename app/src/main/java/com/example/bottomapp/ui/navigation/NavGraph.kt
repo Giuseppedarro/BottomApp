@@ -83,7 +83,7 @@ fun NavGraph(navController: NavHostController, paddingValues: PaddingValues) {
             route = NavDestination.SettingsDestination.route,
 
             ) {
-            SettingsScreen()
+            SettingsScreen(paddingValues = paddingValues)
         }
     }
 }

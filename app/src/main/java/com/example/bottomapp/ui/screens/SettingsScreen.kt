@@ -1,6 +1,7 @@
 package com.example.bottomapp.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Text
@@ -10,7 +11,7 @@ import androidx.compose.ui.res.stringResource
 import com.example.bottomapp.ui.navigation.NavDestination
 
 @Composable
-fun SettingsScreen() {
+fun SettingsScreen(paddingValues: PaddingValues) {
 
     Row(
         modifier = Modifier.fillMaxWidth(),
