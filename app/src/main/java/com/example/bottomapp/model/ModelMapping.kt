@@ -19,13 +19,15 @@ fun ExerciseWithTrainingSets.toExerciseState() = ExerciseState(
 
 fun WorkoutWithExercisesAndSets.toWorkoutState() = WorkoutState(
     name = workout.name,
+    workoutId = workout.workoutId,
     exercises = exercisesWithTrainingSets.map { it.toExerciseState() },
 
 )
 
 fun WorkoutState.toWorkout() = Workout(
     name = name,
-    setsCount = setsCount
+    setsCount = setsCount,
+    workoutId = workoutId
 )
 
 fun ExerciseState.toExercise(workoutId: Long) = Exercise(

@@ -19,13 +19,12 @@ import androidx.navigation.NavHostController
 @Composable
 fun BottomBar(
     navController: NavHostController,
-    navBackStackEntry: NavBackStackEntry?,
     currentDestination: NavDestination,
-    bottomBarState: MutableState<Boolean>
+    bottomBarState: Boolean
 
 ) {
     AnimatedVisibility(
-        visible = bottomBarState.value,
+        visible = bottomBarState,
         enter = fadeIn(),
         exit = fadeOut()
     ) {

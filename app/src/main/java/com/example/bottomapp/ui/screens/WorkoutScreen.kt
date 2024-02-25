@@ -28,6 +28,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.bottomapp.R
+import com.example.bottomapp.model.WorkoutState
 import com.example.bottomapp.ui.components.WorkoutSummary
 import com.example.bottomapp.ui.viewmodels.WorkoutViewModel
 import kotlinx.coroutines.Dispatchers
@@ -36,10 +37,13 @@ import kotlinx.coroutines.launch
 
 
 @Composable
-fun WorkoutScreen(paddingValues: PaddingValues) {
+fun WorkoutScreen(
+    paddingValues: PaddingValues,
+    navigateToNewWorkout:  (workout:  WorkoutState) -> Unit
+    ) {
 
     val viewModel: WorkoutViewModel = viewModel(factory = WorkoutViewModel.Factory)
-    val workouts by viewModel.workoutState.collectAsState()
+    val workouts by viewModel.workoutsState.collectAsState()
     val scope = rememberCoroutineScope()
     
     Column(
@@ -51,6 +55,7 @@ fun WorkoutScreen(paddingValues: PaddingValues) {
         workouts.forEach{ WorkoutSummary(
             workout = it,
             onDelete =  viewModel::deleteWorkout,
+            onClick = { navigateToNewWorkout(it) },
             scope = scope
         ) }
     }

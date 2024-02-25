@@ -34,6 +34,7 @@ import kotlinx.coroutines.launch
 fun WorkoutSummary(
     workout: WorkoutState,
     onDelete: suspend (workout: WorkoutState) -> Unit,
+    onClick: () -> Unit,
     scope: CoroutineScope
 ) {
     ElevatedCard(
@@ -42,7 +43,7 @@ fun WorkoutSummary(
             .padding(14.dp)
             .clip(ShapeDefaults.Large)
             .shadow(20.dp)
-            .clickable(onClick = {}),
+            .clickable(onClick =  onClick ),
         elevation = CardDefaults.cardElevation(defaultElevation = 200.dp),
         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.surfaceVariant)
     ) {
@@ -57,10 +58,7 @@ fun WorkoutSummary(
                 Text(text = "${exercise.numberOfSets} x ${exercise.exerciseName}")
             }
         }
-        IconButton(onClick = { scope.launch(
-            context = Dispatchers.IO,
-            start = CoroutineStart.DEFAULT
-            ) { onDelete(workout) }
+        IconButton(onClick = { scope.launch(Dispatchers.IO) { onDelete(workout) }
         }) {
             Icon(imageVector = Icons.Outlined.Delete, contentDescription = null)
         }

@@ -24,20 +24,20 @@ class WorkoutViewModel(
     val workoutRepository: WorkoutRepository
 ) : ViewModel() {
 
-    private val _workoutState: MutableStateFlow<List<WorkoutState>> = MutableStateFlow(emptyList())
-    val workoutState: StateFlow<List<WorkoutState>> = _workoutState.asStateFlow()
+    private val _workoutsState: MutableStateFlow<List<WorkoutState>> = MutableStateFlow(emptyList())
+    val workoutsState: StateFlow<List<WorkoutState>> = _workoutsState.asStateFlow()
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
             insertRandomWorkout()
             workoutRepository.getWorkoutsFlow().collect { latestState ->
-                _workoutState.update { latestState }
+                _workoutsState.update { latestState }
             }
         }
 
     }
 
-    suspend fun insertRandomWorkout() {
+    private suspend fun insertRandomWorkout() {
         repeat(3) {
             val exercises = listOf<ExerciseState>(
                 ExerciseState(exerciseName = "military", sets = listOf<SetState>(SetState(100,5))),

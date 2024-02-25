@@ -6,4 +6,7 @@
     <string name="settings_screen">Impostazioni</string>
     <string name="insert">Inserisci</string>
     <string name="workout_test">workout: %1$s con %2$d serie di %3$s</string>
+    <string name="set">serie</string>
+    <string name="kg">kg</string>
+    <string name="repetitions">ripetizioni</string>
 </resources>
