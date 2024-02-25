@@ -6,7 +6,7 @@ import com.example.bottomapp.data.source.local.enteties.TrainingSet
 import com.example.bottomapp.data.source.local.enteties.Workout
 import com.example.bottomapp.data.source.local.enteties.WorkoutWithExercisesAndSets
 
-
+/*extension functions to convert workout to workout-state and vice versa*/
 fun TrainingSet.toSetState() = SetState(
     weight = weight,
     repetitions= repetitions
