@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.sp
 import com.example.bottomapp.R
 import com.example.bottomapp.model.ExerciseState
 import com.example.bottomapp.model.WorkoutState
+import com.example.bottomapp.ui.components.TableCell
 import com.example.bottomapp.ui.navigation.WorkoutNavScreen
 
 @Composable
@@ -68,22 +69,18 @@ fun NewWorkoutScreen(
                     horizontalArrangement = Arrangement.SpaceEvenly,
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text(text = stringResource(id = R.string.set).uppercase())
-                    Spacer(modifier = Modifier.weight(1f))
-                    Text(text = stringResource(id = R.string.kg).uppercase())
-                    Spacer(modifier = Modifier.weight(1f))
-                    Text(text = stringResource(id = R.string.repetitions).uppercase())
+                    TableCell(text = stringResource(id = R.string.set).uppercase())
+                    TableCell(text = stringResource(id = R.string.kg).uppercase())
+                    TableCell(text = stringResource(id = R.string.repetitions).uppercase())
                 }
                 it.sets.forEachIndexed { index, set ->
                     Row(
                         horizontalArrangement = Arrangement.SpaceEvenly,
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text(text = index.toString())
-                        Spacer(modifier = Modifier.weight(1f))
-                        Text(text = set.weight.toString())
-                        Spacer(modifier = Modifier.weight(1f))
-                        Text(text = set.repetitions.toString())
+                        TableCell(text = (index + 1).toString())
+                        TableCell(text = set.weight.toString())
+                        TableCell(text = set.repetitions.toString())
                     }
                 }
                 Button(onClick = { addSet(exerciseIndex,it) }){
