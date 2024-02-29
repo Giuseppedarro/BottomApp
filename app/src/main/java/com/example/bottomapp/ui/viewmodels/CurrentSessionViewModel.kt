@@ -15,13 +15,12 @@ class CurrentSessionViewModel : ViewModel() {
 
 
     fun updateWorkoutState(workoutState: WorkoutState) {
-        _workoutState.update { workoutState }
+        _workoutState.update { workoutState.copy(sessionState = true) }
     }
 
 
     fun addSetToExercise(
         exerciseIndex: Int,
-        exercise: ExerciseState
     ) {
         _workoutState.update { currentState ->
 

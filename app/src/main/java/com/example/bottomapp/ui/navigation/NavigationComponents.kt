@@ -29,7 +29,7 @@ fun BottomBar(
         exit = fadeOut()
     ) {
         NavigationBar {
-            NavDestination.allDestinations.forEach { it ->
+            NavDestination.allDestinations.forEach {
                 NavigationBarItem(
                     selected = (it.route == currentDestination.route),
                     enabled = (it.route != currentDestination.route),

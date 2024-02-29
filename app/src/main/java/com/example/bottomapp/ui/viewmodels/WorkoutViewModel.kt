@@ -30,9 +30,13 @@ class WorkoutViewModel(
     init {
         viewModelScope.launch(Dispatchers.IO) {
             insertRandomWorkout()
+
             workoutRepository.getWorkoutsFlow().collect { latestState ->
                 _workoutsState.update { latestState }
             }
+
+
+
         }
 
     }

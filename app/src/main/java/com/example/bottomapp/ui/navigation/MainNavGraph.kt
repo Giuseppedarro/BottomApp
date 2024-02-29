@@ -15,6 +15,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.example.bottomapp.R
+import com.example.bottomapp.model.WorkoutState
 import com.example.bottomapp.ui.screens.HomeScreen
 import com.example.bottomapp.ui.screens.SettingsScreen
 import com.example.bottomapp.ui.screens.WorkoutScreen
@@ -62,7 +63,8 @@ sealed class NavDestination(
 fun NavGraphBuilder.mainNavGraph(
     navController: NavHostController,
     paddingValues: PaddingValues,
-    sessionViewModel: CurrentSessionViewModel
+    sessionViewModel: CurrentSessionViewModel,
+    workoutState: WorkoutState
     ) {
     navigation(
         startDestination = NavDestination.HomeDestination.route,
@@ -81,7 +83,10 @@ fun NavGraphBuilder.mainNavGraph(
                 navigateToNewWorkout = {
                     sessionViewModel.updateWorkoutState(it)
                     navController.navigate(route = WORKOUT_NAV_ROUTE)
-                })
+                },
+                sessionState = workoutState.sessionState,
+                navigateToOldWorkout = { navController.navigate(WORKOUT_NAV_ROUTE) }
+            )
         }
         composable(
             route = NavDestination.SettingsDestination.route,

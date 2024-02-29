@@ -34,7 +34,7 @@ fun NewWorkoutScreen(
     navigateToExercises: () -> Unit,
     paddingValues: PaddingValues,
     workoutState: WorkoutState,
-    addSet: (exerciseIndex: Int,exercise: ExerciseState) -> Unit
+    addSet: (exerciseIndex: Int) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -83,7 +83,7 @@ fun NewWorkoutScreen(
                         TableCell(text = set.repetitions.toString())
                     }
                 }
-                Button(onClick = { addSet(exerciseIndex,it) }){
+                Button(onClick = { addSet(exerciseIndex) }){
                     Text(text = "add set")
                 }
             }

@@ -29,7 +29,8 @@ fun NavGraph(
         mainNavGraph(
             navController = navController,
             paddingValues = paddingValues,
-            sessionViewModel = sessionViewModel
+            sessionViewModel = sessionViewModel,
+            workoutState = workoutState
         )
 
         workoutNavGraph(
