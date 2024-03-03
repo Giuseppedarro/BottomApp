@@ -24,7 +24,8 @@ fun WorkoutScreen(
     paddingValues: PaddingValues,
     navigateToNewWorkout: (workout: WorkoutState) -> Unit,
     sessionState: Boolean,
-    navigateToOldWorkout: () -> Unit
+    navigateToOldWorkout: () -> Unit,
+
 ) {
 
     val viewModel: WorkoutViewModel = viewModel(factory = WorkoutViewModel.Factory)

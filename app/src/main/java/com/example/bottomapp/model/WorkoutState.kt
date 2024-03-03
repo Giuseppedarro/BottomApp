@@ -1,6 +1,6 @@
 package com.example.bottomapp.model
 
-import java.time.LocalDate
+
 
 data class WorkoutState(
     val workoutId: Long = 0,

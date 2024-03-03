@@ -24,18 +24,44 @@ class CurrentSessionViewModel : ViewModel() {
     ) {
         _workoutState.update { currentState ->
 
-            currentState.copy(
-                exercises = currentState.exercises.mapIndexed { index, it ->
-                    if (index == exerciseIndex)
-                        ExerciseState(
-                            exerciseName = it.exerciseName,
-                            sets = it.sets + SetState()
-                        )
-                    else
+            val newExercises = currentState.exercises.mapIndexed { index, it ->
+                if (index == exerciseIndex)
+                    ExerciseState(
+                        exerciseName = it.exerciseName,
+                        sets = it.sets + SetState(),
+                    )
+                else
                     it
-
-                }
+            }
+            currentState.copy(
+                exercises = newExercises,
+                numberOfExercises = newExercises.size,
+                setsCount = newExercises.map { it.numberOfSets }.sumOf { it }
             )
+        }
+    }
+
+    fun completeSet(
+        exerciseIndex: Int,
+        setIndex: Int
+    ) {
+        _workoutState.update { currentState ->
+
+            val newExercises = currentState.exercises.mapIndexed { exerciseMapIndex, exercise ->
+                if (exerciseMapIndex == exerciseIndex) {
+                    val newSets = exercise.sets.mapIndexed { setMapIndex, set ->
+                        if (setMapIndex == setIndex) {
+                            set.copy(isCompleted = !set.isCompleted)
+                        } else {
+                            set
+                        }
+                    }
+                    exercise.copy(sets = newSets)
+                } else {
+                    exercise
+                }
+            }
+            currentState.copy(exercises = newExercises)
         }
     }
 

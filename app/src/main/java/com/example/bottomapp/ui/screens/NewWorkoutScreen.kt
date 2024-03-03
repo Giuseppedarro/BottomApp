@@ -1,41 +1,40 @@
 package com.example.bottomapp.ui.screens
 
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.bottomapp.R
-import com.example.bottomapp.model.ExerciseState
-import com.example.bottomapp.model.WorkoutState
 import com.example.bottomapp.ui.components.TableCell
-import com.example.bottomapp.ui.navigation.WorkoutNavScreen
+import com.example.bottomapp.ui.viewmodels.CurrentSessionViewModel
 
 @Composable
 fun NewWorkoutScreen(
     navigateToExercises: () -> Unit,
     paddingValues: PaddingValues,
-    workoutState: WorkoutState,
-    addSet: (exerciseIndex: Int) -> Unit
+
+    addSet: (exerciseIndex: Int) -> Unit,
+    sessionViewModel: CurrentSessionViewModel
 ) {
+    val workoutState by sessionViewModel.workoutState.collectAsState()
+
     Column(
         modifier = Modifier
             .padding(paddingValues = paddingValues)
@@ -49,7 +48,7 @@ fun NewWorkoutScreen(
         Text(
             text = """workout: ${workoutState.name}
             |number of exercises: ${workoutState.numberOfExercises}
-            |number of sets: ${workoutState.numberOfExercises}
+            |number of sets: ${workoutState.setsCount}
             |
         """.trimMargin(),
             fontStyle = FontStyle.Italic,
@@ -69,18 +68,28 @@ fun NewWorkoutScreen(
                     horizontalArrangement = Arrangement.SpaceEvenly,
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    TableCell(text = stringResource(id = R.string.set).uppercase())
-                    TableCell(text = stringResource(id = R.string.kg).uppercase())
-                    TableCell(text = stringResource(id = R.string.repetitions).uppercase())
+                    TableCell(content = stringResource(id = R.string.set).uppercase())
+                    TableCell(content = stringResource(id = R.string.kg).uppercase())
+                    TableCell(content = stringResource(id = R.string.repetitions).uppercase())
+                    TableCell(content = Unit)
                 }
                 it.sets.forEachIndexed { index, set ->
                     Row(
                         horizontalArrangement = Arrangement.SpaceEvenly,
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        TableCell(text = (index + 1).toString())
-                        TableCell(text = set.weight.toString())
-                        TableCell(text = set.repetitions.toString())
+                        TableCell(content = (index + 1).toString())
+                        TableCell(content = set.weight.toString())
+                        TableCell(content = set.repetitions.toString())
+                        Checkbox(
+                            checked = set.isCompleted,
+                            onCheckedChange = { sessionViewModel.completeSet(
+                                exerciseIndex = exerciseIndex,
+                                setIndex = index
+                            )
+                            },
+                            modifier = Modifier.weight(1F)
+                        )
                     }
                 }
                 Button(onClick = { addSet(exerciseIndex) }){

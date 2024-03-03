@@ -34,8 +34,8 @@ fun NavGraphBuilder.workoutNavGraph(
             NewWorkoutScreen(
                 navigateToExercises = { navController.navigate(WorkoutNavScreen.NewExerciseScreen.route) },
                 paddingValues = paddingValues,
-                workoutState = workoutState,
-                addSet = sessionViewModel::addSetToExercise
+                addSet = sessionViewModel::addSetToExercise,
+                sessionViewModel = sessionViewModel
             )
         }
 

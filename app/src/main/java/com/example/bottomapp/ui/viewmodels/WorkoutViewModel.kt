@@ -28,14 +28,13 @@ class WorkoutViewModel(
     val workoutsState: StateFlow<List<WorkoutState>> = _workoutsState.asStateFlow()
 
     init {
-        viewModelScope.launch(Dispatchers.IO) {
-            insertRandomWorkout()
 
+        viewModelScope.launch(Dispatchers.IO) {
+
+            insertRandomWorkout()
             workoutRepository.getWorkoutsFlow().collect { latestState ->
                 _workoutsState.update { latestState }
             }
-
-
 
         }
 
