@@ -1,6 +1,5 @@
 
-## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ## ##
-[Your App Name] - Workout Tracker
+Workout Tracker
 
 This is a repository for a mobile application that helps you track your workouts.
 
