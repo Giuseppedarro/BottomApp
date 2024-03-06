@@ -4,6 +4,8 @@ import android.app.Application
 import com.example.bottomapp.data.AppContainer
 import com.example.bottomapp.data.DefaultAppContainer
 
+
+
 class BottomApplication : Application() {
     lateinit var container: AppContainer
 

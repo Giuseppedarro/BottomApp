@@ -79,8 +79,20 @@ fun NewWorkoutScreen(
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         TableCell(content = (index + 1).toString())
-                        TableCell(content = set.weight.toString())
-                        TableCell(content = set.repetitions.toString())
+                        TableCell(
+                            content = set.weight,
+                            onValueChange = { weight ->
+                                sessionViewModel.setWeight(
+                                    weight = weight,
+                                    exerciseIndex = exerciseIndex,
+                                    setIndex = index,
+                                )
+                            }
+                        )
+                        TableCell(
+                            content = set.repetitions,
+                            onValueChange = null
+                        )
                         Checkbox(
                             checked = set.isCompleted,
                             onCheckedChange = { sessionViewModel.completeSet(
@@ -88,7 +100,9 @@ fun NewWorkoutScreen(
                                 setIndex = index
                             )
                             },
-                            modifier = Modifier.weight(1F)
+                            modifier = Modifier
+                                .weight(1F)
+                                .align(Alignment.CenterVertically)
                         )
                     }
                 }

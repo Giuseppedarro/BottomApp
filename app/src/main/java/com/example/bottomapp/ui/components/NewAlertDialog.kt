@@ -12,7 +12,7 @@ fun NewAlertDialog(
     goBack: () -> Unit
 ) {
     AlertDialog(
-        onDismissRequest = {  },
+        onDismissRequest = { goBack() },
         confirmButton = { Button(onClick = onConfirm) {
             Text(text = "Continua allenamento")
         } },

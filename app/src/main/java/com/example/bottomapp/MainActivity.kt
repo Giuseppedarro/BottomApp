@@ -14,6 +14,7 @@ import com.example.bottomapp.ui.BottomApp
 import com.example.bottomapp.ui.theme.BottomAppTheme
 
 
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
