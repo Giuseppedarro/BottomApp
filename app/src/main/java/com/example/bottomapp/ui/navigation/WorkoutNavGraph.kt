@@ -5,10 +5,10 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.example.bottomapp.model.WorkoutState
 import com.example.bottomapp.ui.screens.AddExerciseScreen
 import com.example.bottomapp.ui.screens.NewWorkoutScreen
 import com.example.bottomapp.ui.viewmodels.CurrentSessionViewModel
+import com.example.bottomapp.ui.viewmodels.WorkoutViewModel
 
 const val WORKOUT_NAV_ROUTE = "workout_nav_route"
 
@@ -23,7 +23,7 @@ fun NavGraphBuilder.workoutNavGraph(
     navController: NavHostController,
     paddingValues: PaddingValues,
     sessionViewModel: CurrentSessionViewModel,
-    workoutState: WorkoutState
+    workoutViewModel: WorkoutViewModel
     ) {
     navigation(
         startDestination = WorkoutNavScreen.NewWorkoutScreen.route,
@@ -35,13 +35,23 @@ fun NavGraphBuilder.workoutNavGraph(
                 navigateToExercises = { navController.navigate(WorkoutNavScreen.NewExerciseScreen.route) },
                 paddingValues = paddingValues,
                 addSet = sessionViewModel::addSetToExercise,
-                sessionViewModel = sessionViewModel
+                sessionViewModel = sessionViewModel,
+                saveWorkout = { workoutState -> workoutViewModel.saveWorkout(workoutState)},
+                terminateWorkoutAndGoBack = {
+                    sessionViewModel.terminateWorkout()
+                    navController.navigateUp()
+                }
             )
         }
 
         composable(route = WorkoutNavScreen.NewExerciseScreen.route) {
             AddExerciseScreen(
-                addExerciseAndReturn = { navController.navigateUp() })
+                sessionViewModel = sessionViewModel,
+                addExerciseAndReturn = { exercise ->
+                    sessionViewModel.addExerciseToWorkout(exercise)
+                    navController.navigateUp()
+                }
+            )
         }
     }
 

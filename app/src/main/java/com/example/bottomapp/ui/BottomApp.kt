@@ -18,6 +18,7 @@ import com.example.bottomapp.ui.navigation.BottomBar
 import com.example.bottomapp.ui.navigation.NavDestination
 import com.example.bottomapp.ui.navigation.NavGraph
 import com.example.bottomapp.ui.viewmodels.CurrentSessionViewModel
+import com.example.bottomapp.ui.viewmodels.WorkoutViewModel
 
 @Preview
 @OptIn(ExperimentalMaterial3Api::class)
@@ -30,6 +31,7 @@ fun BottomApp() {
     val bottomBarState = NavDestination.allDestinations.map{ it.route }
         .contains(navBackStackEntry?.destination?.route)
     val sessionViewModel: CurrentSessionViewModel = viewModel()
+    val workoutViewModel: WorkoutViewModel = viewModel(factory = WorkoutViewModel.Factory)
 
     Scaffold(
         bottomBar = { BottomBar(
@@ -39,11 +41,13 @@ fun BottomApp() {
         ) }
     ) { paddingValues ->
         val workoutState: WorkoutState by sessionViewModel.workoutState.collectAsState()
+
         NavGraph(
             navController = navController,
             paddingValues = paddingValues,
             sessionViewModel = sessionViewModel,
-            workoutState =  workoutState
+            workoutState =  workoutState,
+            workoutViewModel = workoutViewModel
         )
     }
 }

@@ -15,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -22,18 +23,23 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.bottomapp.R
+import com.example.bottomapp.model.WorkoutState
 import com.example.bottomapp.ui.components.TableCell
 import com.example.bottomapp.ui.viewmodels.CurrentSessionViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @Composable
 fun NewWorkoutScreen(
     navigateToExercises: () -> Unit,
     paddingValues: PaddingValues,
-
     addSet: (exerciseIndex: Int) -> Unit,
-    sessionViewModel: CurrentSessionViewModel
+    sessionViewModel: CurrentSessionViewModel,
+    saveWorkout: suspend (workoutState: WorkoutState) -> Unit,
+    terminateWorkoutAndGoBack: () -> Unit
 ) {
     val workoutState by sessionViewModel.workoutState.collectAsState()
+    val scope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier
@@ -54,8 +60,24 @@ fun NewWorkoutScreen(
             fontStyle = FontStyle.Italic,
             fontSize = 20.sp
         )
+
+        Row {
+            Button(onClick = { val job = scope.launch {
+                saveWorkout(workoutState)
+                terminateWorkoutAndGoBack()
+            }
+
+            }
+            ) {
+                Text("Save workout")
+            }
+            Button(onClick = { terminateWorkoutAndGoBack() }) {
+                Text(text = "Discard workout")
+            }
+        }
+
         Column(
-            verticalArrangement = Arrangement.spacedBy(8.dp),
+           verticalArrangement = Arrangement.spacedBy(8.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxSize()
         ) {

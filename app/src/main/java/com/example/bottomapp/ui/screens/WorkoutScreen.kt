@@ -25,10 +25,10 @@ fun WorkoutScreen(
     navigateToNewWorkout: (workout: WorkoutState) -> Unit,
     sessionState: Boolean,
     navigateToOldWorkout: () -> Unit,
+    viewModel: WorkoutViewModel,
 
-) {
-
-    val viewModel: WorkoutViewModel = viewModel(factory = WorkoutViewModel.Factory)
+    ) {
+    //val viewModel: WorkoutViewModel = viewModel(factory = WorkoutViewModel.Factory)
     val workouts by viewModel.workoutsState.collectAsState()
     val scope = rememberCoroutineScope()
     val showNewAlertDialog = remember { mutableStateOf(false) }

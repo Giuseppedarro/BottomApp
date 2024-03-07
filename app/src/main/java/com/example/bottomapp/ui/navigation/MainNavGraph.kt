@@ -20,6 +20,7 @@ import com.example.bottomapp.ui.screens.HomeScreen
 import com.example.bottomapp.ui.screens.SettingsScreen
 import com.example.bottomapp.ui.screens.WorkoutScreen
 import com.example.bottomapp.ui.viewmodels.CurrentSessionViewModel
+import com.example.bottomapp.ui.viewmodels.WorkoutViewModel
 
 const val MAIN_NAV_ROUTE = "main_nav_route"
 
@@ -64,8 +65,9 @@ fun NavGraphBuilder.mainNavGraph(
     navController: NavHostController,
     paddingValues: PaddingValues,
     sessionViewModel: CurrentSessionViewModel,
-    workoutState: WorkoutState
-    ) {
+    workoutState: WorkoutState,
+    workoutViewModel: WorkoutViewModel
+) {
     navigation(
         startDestination = NavDestination.HomeDestination.route,
         route = MAIN_NAV_ROUTE
@@ -85,7 +87,8 @@ fun NavGraphBuilder.mainNavGraph(
                     navController.navigate(route = WORKOUT_NAV_ROUTE)
                 },
                 sessionState = workoutState.sessionState,
-                navigateToOldWorkout = { navController.navigate(WORKOUT_NAV_ROUTE) }
+                navigateToOldWorkout = { navController.navigate(WORKOUT_NAV_ROUTE) },
+                viewModel = workoutViewModel
             )
         }
         composable(

@@ -42,18 +42,20 @@ class WorkoutViewModel(
 
     private suspend fun insertRandomWorkout() {
         repeat(3) {
-            val exercises = listOf<ExerciseState>(
-                ExerciseState(exerciseName = "military", sets = listOf<SetState>(SetState(100,5))),
-                ExerciseState(exerciseName = "panca", sets = listOf<SetState>(SetState(150,1))),
-                ExerciseState(exerciseName = "squat", sets = listOf<SetState>(SetState(100,10)))
+            val exercises = listOf(
+                ExerciseState(exerciseName = "military", sets = listOf<SetState>(SetState(100,5, true))),
+                ExerciseState(exerciseName = "panca", sets = listOf<SetState>(SetState(150,1, true))),
+                ExerciseState(exerciseName = "squat", sets = listOf<SetState>(SetState(100,10, true)))
             )
             val workout = WorkoutState(
                 name = "January ${(1..31).random()}",
                 exercises = exercises
             )
-            workoutRepository.insertWorkoutWithExercisesAndSets(workout)
+            saveWorkout(workout)
         }
     }
+
+    suspend fun saveWorkout(workout: WorkoutState) = workoutRepository.insertWorkoutWithExercisesAndSets(workout)
 
     suspend fun deleteWorkout(workout: WorkoutState) = workoutRepository.deleteWorkout(workout)
 

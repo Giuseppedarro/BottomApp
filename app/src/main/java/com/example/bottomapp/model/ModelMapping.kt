@@ -35,7 +35,7 @@ fun ExerciseState.toExercise(workoutId: Long) = Exercise(
     exerciseName = exerciseName
 )
 
-fun SetState.toTrainingSet(exerciseId: Long) = TrainingSet(
+fun SetState.toTrainingSet(exerciseId: Long) =  TrainingSet(
     exerciseId = exerciseId,
     weight = weight,
     repetitions = repetitions
