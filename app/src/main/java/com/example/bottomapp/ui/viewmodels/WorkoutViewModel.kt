@@ -21,7 +21,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class WorkoutViewModel(
-    val workoutRepository: WorkoutRepository
+    private val workoutRepository: WorkoutRepository
 ) : ViewModel() {
 
     private val _workoutsState: MutableStateFlow<List<WorkoutState>> = MutableStateFlow(emptyList())
@@ -56,16 +56,7 @@ class WorkoutViewModel(
     }
 
     suspend fun saveWorkout(workout: WorkoutState) = workoutRepository.insertWorkoutWithExercisesAndSets(workout)
-
     suspend fun deleteWorkout(workout: WorkoutState) = workoutRepository.deleteWorkout(workout)
 
- companion object {
-     val Factory: ViewModelProvider.Factory = viewModelFactory {
-         initializer {
-             val application = this[APPLICATION_KEY] as BottomApplication
-             val workoutRepository: WorkoutRepository = application.container.workoutRepository
-             WorkoutViewModel(workoutRepository = workoutRepository)
-         }
-     }
- }
+
 }

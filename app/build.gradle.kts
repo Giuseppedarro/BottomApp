@@ -63,6 +63,7 @@ dependencies {
 
     //compose navigation
     implementation("androidx.navigation:navigation-compose:2.7.6")
+
     //room
     val room_version = "2.6.1"
     implementation("androidx.room:room-runtime:$room_version")
@@ -70,7 +71,11 @@ dependencies {
     annotationProcessor("androidx.room:room-compiler:$room_version")
     ksp("androidx.room:room-compiler:$room_version")
 
-
+    //koin
+    val koin_version = "3.5.0"
+    implementation("io.insert-koin:koin-android:$koin_version")
+    implementation("io.insert-koin:koin-androidx-navigation:$koin_version")
+    implementation("io.insert-koin:koin-androidx-compose:$koin_version")
 
     implementation("androidx.core:core-ktx:+")
     testImplementation("junit:junit:4.13.2")

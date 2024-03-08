@@ -19,6 +19,8 @@ import com.example.bottomapp.ui.navigation.NavDestination
 import com.example.bottomapp.ui.navigation.NavGraph
 import com.example.bottomapp.ui.viewmodels.CurrentSessionViewModel
 import com.example.bottomapp.ui.viewmodels.WorkoutViewModel
+import org.koin.androidx.compose.getViewModel
+
 
 @Preview
 @OptIn(ExperimentalMaterial3Api::class)
@@ -31,7 +33,7 @@ fun BottomApp() {
     val bottomBarState = NavDestination.allDestinations.map{ it.route }
         .contains(navBackStackEntry?.destination?.route)
     val sessionViewModel: CurrentSessionViewModel = viewModel()
-    val workoutViewModel: WorkoutViewModel = viewModel(factory = WorkoutViewModel.Factory)
+    val workoutViewModel: WorkoutViewModel = getViewModel()
 
     Scaffold(
         bottomBar = { BottomBar(
