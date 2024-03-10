@@ -77,6 +77,9 @@ dependencies {
     implementation("io.insert-koin:koin-androidx-navigation:$koin_version")
     implementation("io.insert-koin:koin-androidx-compose:$koin_version")
 
+    //splash screen
+    implementation("androidx.core:core-splashscreen:1.0.1")
+
     implementation("androidx.core:core-ktx:+")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

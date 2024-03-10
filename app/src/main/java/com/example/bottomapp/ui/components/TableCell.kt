@@ -22,6 +22,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.bottomapp.ui.theme.BottomAppTheme
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -29,7 +30,6 @@ import androidx.compose.ui.unit.sp
 fun <T>RowScope.TableCell(
     content: T,
     onValueChange: ((Int) -> Unit)? = null
-
     ) {
 
     when(content) {
@@ -81,18 +81,21 @@ fun <T>RowScope.TableCell(
 @Preview
 @Composable
 fun TableCellPreview() {
-    val provaRow = listOf("prova1","prova2","prova3","prova4")
-    val provaRow2 = listOf("1", 2, 3)
-    Column {
-        Row {
-            provaRow.forEach { TableCell(content = it) }
-        }
-        Row {
-            provaRow2.forEach { TableCell(content = it) }
-            Checkbox(checked = true, onCheckedChange = {}, modifier = Modifier
-                .weight(1F)
-                .align(alignment = Alignment.CenterVertically))
+    val previewRow = listOf("prova1","prova2","prova3","prova4")
+    val previewRow2 = listOf("1", 2, 3)
+    BottomAppTheme {
+        Column {
+            Row {
+                previewRow.forEach { TableCell(content = it) }
+            }
+            Row {
+                previewRow2.forEach { TableCell(content = it) }
+                Checkbox(checked = true, onCheckedChange = {}, modifier = Modifier
+                    .weight(1F)
+                    .align(alignment = Alignment.CenterVertically))
+            }
         }
     }
+
 
 }

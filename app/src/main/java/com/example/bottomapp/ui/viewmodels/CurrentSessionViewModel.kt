@@ -76,8 +76,31 @@ class CurrentSessionViewModel() : ViewModel() {
                 }
 
             }
+            currentState.copy(exercises = newExercises)
+        }
+    }
 
+    fun setRepetitions(
+        exerciseIndex: Int,
+        setIndex: Int,
+        repetitions: Int
+    ) {
+        _workoutState.update { currentState  ->
+            val newExercises = currentState.exercises.mapIndexed { exerciseMapIndex, exercise ->
+                if (exerciseMapIndex == exerciseIndex) {
+                    val newSets = exercise.sets.mapIndexed { setMapIndex, set ->
+                        if (setMapIndex == setIndex) {
+                            set.copy(repetitions = repetitions)
+                        } else {
+                            set
+                        }
+                    }
+                    exercise.copy(sets = newSets)
+                } else {
+                    exercise
+                }
 
+            }
             currentState.copy(exercises = newExercises)
         }
     }

@@ -113,7 +113,13 @@ fun NewWorkoutScreen(
                         )
                         TableCell(
                             content = set.repetitions,
-                            onValueChange = null
+                            onValueChange = { repetitions ->
+                                sessionViewModel.setRepetitions(
+                                    repetitions = repetitions,
+                                    exerciseIndex = exerciseIndex,
+                                    setIndex = index,
+                                )
+                            }
                         )
                         Checkbox(
                             checked = set.isCompleted,

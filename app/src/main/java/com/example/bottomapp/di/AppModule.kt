@@ -14,13 +14,9 @@ import org.koin.dsl.module
 
 val appModule = module {
 
-        single<WorkoutRepository> {
-                DefaultWorkoutRepository(
-                        WorkoutDatabase
-                                .getWorkoutDatabase(androidContext())
-                                .getDao()
-                )
-        }
+        single { WorkoutDatabase.getWorkoutDatabase(androidContext()).getDao() }
+
+        single<WorkoutRepository> { DefaultWorkoutRepository(get()) }
 
         viewModel { WorkoutViewModel(get()) }
 

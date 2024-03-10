@@ -28,7 +28,7 @@ fun WorkoutScreen(
     viewModel: WorkoutViewModel,
 
     ) {
-    //val viewModel: WorkoutViewModel = viewModel(factory = WorkoutViewModel.Factory)
+
     val workouts by viewModel.workoutsState.collectAsState()
     val scope = rememberCoroutineScope()
     val showNewAlertDialog = remember { mutableStateOf(false) }
