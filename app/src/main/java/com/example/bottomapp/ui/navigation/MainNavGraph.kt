@@ -95,7 +95,10 @@ fun NavGraphBuilder.mainNavGraph(
             route = NavDestination.SettingsDestination.route,
 
             ) {
-            SettingsScreen(paddingValues = paddingValues)
+            SettingsScreen(
+                paddingValues = paddingValues,
+                userName = "Giuseppe"
+            )
         }
     }
 

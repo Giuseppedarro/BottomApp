@@ -1,14 +1,18 @@
 package com.example.bottomapp.di
 
+import android.content.Context
+import com.example.bottomapp.CurrentSessionService
 import com.example.bottomapp.data.AppContainer
 import com.example.bottomapp.data.DefaultAppContainer
 import com.example.bottomapp.data.DefaultWorkoutRepository
 import com.example.bottomapp.data.WorkoutRepository
 import com.example.bottomapp.data.source.local.WorkoutDatabase
 import com.example.bottomapp.ui.viewmodels.CurrentSessionViewModel
+import com.example.bottomapp.ui.viewmodels.HomeViewModel
 import com.example.bottomapp.ui.viewmodels.WorkoutViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 
 
@@ -19,5 +23,10 @@ val appModule = module {
         single<WorkoutRepository> { DefaultWorkoutRepository(get()) }
 
         viewModel { WorkoutViewModel(get()) }
+
+        viewModel { CurrentSessionViewModel() }
+
+
+
 
 }
