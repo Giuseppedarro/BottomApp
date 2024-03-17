@@ -1,9 +1,6 @@
 package com.example.bottomapp.data
 
 import com.example.bottomapp.data.source.local.AllExercises
-import com.example.bottomapp.data.source.local.enteties.Exercise
-import com.example.bottomapp.data.source.local.enteties.Workout
-import com.example.bottomapp.data.source.local.enteties.WorkoutWithExercises
 import com.example.bottomapp.data.source.local.WorkoutDao
 import com.example.bottomapp.model.ExerciseState
 import com.example.bottomapp.model.WorkoutState
@@ -14,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 
-interface WorkoutRepository {
+interface WorkoutsRepository {
 
     fun getWorkoutsFlow(): Flow<List<WorkoutState>>
 
@@ -26,7 +23,7 @@ interface WorkoutRepository {
 }
 
 
-class DefaultWorkoutRepository(private val dao: WorkoutDao) : WorkoutRepository {
+class DefaultWorkoutsRepository(private val dao: WorkoutDao) : WorkoutsRepository {
 
     override fun getWorkoutsFlow(): Flow<List<WorkoutState>> =
         dao.getWorkoutsWithExercisesAndSetsFlow()

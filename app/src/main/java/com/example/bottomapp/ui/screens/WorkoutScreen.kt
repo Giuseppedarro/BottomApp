@@ -17,6 +17,9 @@ import com.example.bottomapp.model.WorkoutState
 import com.example.bottomapp.ui.components.NewAlertDialog
 import com.example.bottomapp.ui.components.WorkoutSummary
 import com.example.bottomapp.ui.viewmodels.WorkoutViewModel
+import org.koin.androidx.compose.getViewModel
+import org.koin.androidx.compose.koinViewModel
+import org.koin.compose.koinInject
 
 
 @Composable
@@ -26,8 +29,8 @@ fun WorkoutScreen(
     sessionState: Boolean,
     navigateToOldWorkout: () -> Unit,
     viewModel: WorkoutViewModel,
-
     ) {
+
 
     val workouts by viewModel.workoutsState.collectAsState()
     val scope = rememberCoroutineScope()

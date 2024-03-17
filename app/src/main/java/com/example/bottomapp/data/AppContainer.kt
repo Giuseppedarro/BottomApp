@@ -4,13 +4,13 @@ import android.content.Context
 import com.example.bottomapp.data.source.local.WorkoutDatabase
 
 interface AppContainer {
-    val workoutRepository: WorkoutRepository
+    val workoutRepository: WorkoutsRepository
 }
 
 class DefaultAppContainer(context: Context) : AppContainer {
 
-    override val workoutRepository: WorkoutRepository by lazy {
-        DefaultWorkoutRepository(
+    override val workoutRepository: WorkoutsRepository by lazy {
+        DefaultWorkoutsRepository(
             WorkoutDatabase
                 .getWorkoutDatabase(context)
                 .getDao()

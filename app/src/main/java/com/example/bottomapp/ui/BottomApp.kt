@@ -9,6 +9,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -42,7 +43,7 @@ fun BottomApp() {
             bottomBarState = bottomBarState
         ) }
     ) { paddingValues ->
-        val workoutState: WorkoutState by sessionViewModel.workoutState.collectAsState()
+        val workoutState: WorkoutState by sessionViewModel.workoutState.collectAsStateWithLifecycle()
 
         NavGraph(
             navController = navController,

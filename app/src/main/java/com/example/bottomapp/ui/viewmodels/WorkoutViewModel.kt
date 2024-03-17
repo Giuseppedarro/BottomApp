@@ -1,15 +1,8 @@
 package com.example.bottomapp.ui.viewmodels
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
-import com.example.bottomapp.BottomApplication
-import com.example.bottomapp.data.WorkoutRepository
-import com.example.bottomapp.data.source.local.enteties.Exercise
-import com.example.bottomapp.data.source.local.enteties.Workout
+import com.example.bottomapp.data.WorkoutsRepository
 import com.example.bottomapp.model.ExerciseState
 import com.example.bottomapp.model.SetState
 import com.example.bottomapp.model.WorkoutState
@@ -21,7 +14,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class WorkoutViewModel(
-    private val workoutRepository: WorkoutRepository
+    private val workoutRepository: WorkoutsRepository
 ) : ViewModel() {
 
     private val _workoutsState: MutableStateFlow<List<WorkoutState>> = MutableStateFlow(emptyList())
