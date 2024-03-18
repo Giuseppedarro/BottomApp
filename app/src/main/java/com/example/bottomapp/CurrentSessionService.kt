@@ -3,14 +3,13 @@ package com.example.bottomapp
 import android.app.Service
 import android.content.Intent
 import android.os.IBinder
-import androidx.compose.runtime.collectAsState
 import androidx.core.app.NotificationCompat
-import com.example.bottomapp.ui.viewmodels.CurrentSessionViewModel
+import com.example.bottomapp.workout.data.SessionRepository
 import org.koin.android.ext.android.inject
 
 class CurrentSessionService() : Service() {
 
-    private val sessionViewModel: CurrentSessionViewModel by inject()
+    private val sessionRepository: SessionRepository by inject()
 
     override fun onBind(intent: Intent?): IBinder? = null
 
@@ -30,11 +29,10 @@ class CurrentSessionService() : Service() {
     private fun start() {
 
 
-
         val notification = NotificationCompat.Builder(this, "current_session_channel")
             .setSmallIcon(R.drawable.dumbbel_svgrepo_com)
-            .setContentTitle("titolo")
-            .setContentText(sessionViewModel.workoutState.value.sessionState.toString())
+            .setContentTitle(sessionRepository.workoutState.value.name)
+            .setContentText(sessionRepository.workoutState.value.sessionState.toString())
             .build()
         startForeground(1, notification)
     }
@@ -45,3 +43,4 @@ class CurrentSessionService() : Service() {
     }
 
 }
+

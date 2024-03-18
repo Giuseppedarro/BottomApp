@@ -8,29 +8,15 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.app.ActivityCompat
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.bottomapp.model.WorkoutState
 import com.example.bottomapp.ui.BottomApp
 import com.example.bottomapp.ui.theme.BottomAppTheme
-import com.example.bottomapp.ui.viewmodels.CurrentSessionViewModel
-import com.example.bottomapp.ui.viewmodels.WorkoutViewModel
-import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
+import com.example.bottomapp.workout.presentation.viewmodels.CurrentSessionViewModel
 import org.koin.androidx.viewmodel.ext.android.getViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MainActivity : ComponentActivity() {

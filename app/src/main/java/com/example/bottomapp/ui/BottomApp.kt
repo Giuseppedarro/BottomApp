@@ -4,22 +4,19 @@ package com.example.bottomapp.ui
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.bottomapp.model.WorkoutState
+import com.example.bottomapp.workout.domain.models.WorkoutState
 import com.example.bottomapp.ui.navigation.BottomBar
 import com.example.bottomapp.ui.navigation.NavDestination
 import com.example.bottomapp.ui.navigation.NavGraph
-import com.example.bottomapp.ui.viewmodels.CurrentSessionViewModel
-import com.example.bottomapp.ui.viewmodels.WorkoutViewModel
+import com.example.bottomapp.workout.presentation.viewmodels.CurrentSessionViewModel
+import com.example.bottomapp.workout.presentation.viewmodels.WorkoutViewModel
 import org.koin.androidx.compose.getViewModel
 
 

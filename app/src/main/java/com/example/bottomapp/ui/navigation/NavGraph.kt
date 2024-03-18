@@ -6,9 +6,13 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import com.example.bottomapp.model.WorkoutState
-import com.example.bottomapp.ui.viewmodels.CurrentSessionViewModel
-import com.example.bottomapp.ui.viewmodels.WorkoutViewModel
+import com.example.bottomapp.home.presentation.navigation.HOME_NAV_ROUTE
+import com.example.bottomapp.home.presentation.navigation.homeNavGraph
+import com.example.bottomapp.settings.presentation.navigation.settingsNavGraph
+import com.example.bottomapp.workout.domain.models.WorkoutState
+import com.example.bottomapp.workout.presentation.viewmodels.CurrentSessionViewModel
+import com.example.bottomapp.workout.presentation.viewmodels.WorkoutViewModel
+import com.example.bottomapp.workout.presentation.navigation.workoutNavGraph
 
 
 @Composable
@@ -21,13 +25,13 @@ fun NavGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = MAIN_NAV_ROUTE,
+        startDestination = HOME_NAV_ROUTE,
         enterTransition = { slideInHorizontally(initialOffsetX = { fullWidth -> -30*fullWidth }) },
         exitTransition = { slideOutHorizontally(targetOffsetX = { fullWidth -> -30*fullWidth }) }
 
     ) {
 
-        mainNavGraph(
+        homeNavGraph(
             navController = navController,
             paddingValues = paddingValues,
             sessionViewModel = sessionViewModel,
@@ -42,5 +46,9 @@ fun NavGraph(
             workoutViewModel = workoutViewModel
         )
 
+        settingsNavGraph(
+            paddingValues = paddingValues,
+            navController = navController
+        )
     }
 }
