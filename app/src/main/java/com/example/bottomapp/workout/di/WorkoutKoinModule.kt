@@ -11,16 +11,13 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 
-val workoutModule = module {
+val workoutKoinModule = module {
 
-        single { WorkoutDatabase.getWorkoutDatabase(get()).getDao() }
-
+        includes(workoutDatabaseKoinModule)
+        single { get<WorkoutDatabase>().getDao() }
         single<WorkoutsRepository> { DefaultWorkoutsRepository(get()) }
-
         viewModel { WorkoutViewModel(get()) }
-
         single<SessionRepository> { CurrentSessionRepository() }
-
         viewModel { CurrentSessionViewModel(get()) }
 
 }

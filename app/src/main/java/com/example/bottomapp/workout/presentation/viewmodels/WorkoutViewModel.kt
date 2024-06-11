@@ -6,7 +6,9 @@ import com.example.bottomapp.workout.data.WorkoutsRepository
 import com.example.bottomapp.workout.domain.models.ExerciseState
 import com.example.bottomapp.workout.domain.models.SetState
 import com.example.bottomapp.workout.domain.models.WorkoutState
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -21,7 +23,6 @@ class WorkoutViewModel(
     val workoutsState: StateFlow<List<WorkoutState>> = _workoutsState.asStateFlow()
 
     init {
-
         viewModelScope.launch(Dispatchers.IO) {
 
             insertRandomWorkout()

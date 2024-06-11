@@ -6,7 +6,7 @@ import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.example.bottomapp.workout.di.workoutModule
+import com.example.bottomapp.workout.di.workoutKoinModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -20,7 +20,7 @@ class BottomApplication : Application() {
         startKoin {
             androidLogger()
             androidContext(this@BottomApplication)
-            modules(workoutModule)
+            modules(workoutKoinModule)
         }
         val channel = NotificationChannel(
             "current_session_channel",

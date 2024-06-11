@@ -22,8 +22,6 @@ import org.koin.androidx.viewmodel.ext.android.getViewModel
 class MainActivity : ComponentActivity() {
 
 
-    private lateinit var sessionViewModel: CurrentSessionViewModel
-
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +30,6 @@ class MainActivity : ComponentActivity() {
         ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.POST_NOTIFICATIONS), 0)
         installSplashScreen()
         setContent {
-            sessionViewModel = getViewModel()
             BottomAppTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
@@ -46,32 +43,15 @@ class MainActivity : ComponentActivity() {
 
     }
 
-    override fun onPause() {
-        super.onPause()
-        println("pause")
-        val workoutState = sessionViewModel.workoutState.value
-        if (workoutState.sessionState) {
-            Intent(applicationContext, CurrentSessionService::class.java).also {
-                it.action = CurrentSessionService.Action.START.toString()
-                startService(it)
-            }
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        println("resume")
-    }
-
     override fun onStop() {
         super.onStop()
-        println("stop")
+        Intent(applicationContext, CurrentSessionService::class.java).also {
+            it.action = CurrentSessionService.Action.START.toString()
+            startService(it)
+        }
+
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        println("destroy")
-    }
 
 }
 
