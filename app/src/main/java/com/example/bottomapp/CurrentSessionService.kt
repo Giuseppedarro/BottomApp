@@ -6,7 +6,7 @@ import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import com.example.bottomapp.workout.data.SessionRepository
 import org.koin.android.ext.android.inject
-
+/*to fix*/
 class CurrentSessionService() : Service() {
 
     private val sessionRepository: SessionRepository by inject()
